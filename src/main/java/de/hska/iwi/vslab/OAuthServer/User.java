@@ -7,11 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-<<<<<<< Updated upstream
-public class User implements UserDetails {
-=======
 public class User implements UserDetails{
->>>>>>> Stashed changes
 
     /**
      *
@@ -28,22 +24,14 @@ public class User implements UserDetails{
 
     private String password;
 
-<<<<<<< Updated upstream
     private Role role;
-=======
-    private int role;
->>>>>>> Stashed changes
 
 
     public User() {
 
     }
 
-<<<<<<< Updated upstream
     public User(String username, String firstname, String lastname, String password, Role role) {
-=======
-    public User(String username, String firstname, String lastname, String password, int role) {
->>>>>>> Stashed changes
         this.username = username;
         this.firstName = firstname;
         this.lastName = lastname;
@@ -89,34 +77,20 @@ public class User implements UserDetails{
         this.password = password;
     }
 
-<<<<<<< Updated upstream
     public Role getRole() {
         return this.role;
     }
 
     public void setRole(Role role) {
-=======
-    public int getRole() {
-        return this.role;
-    }
-
-    public void setRole(int role) {
->>>>>>> Stashed changes
         this.role = role;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-<<<<<<< Updated upstream
-        if (role.getType().equals("admin")) {
-            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        } else {
-=======
-        if(role==0) {
+        if(role.getTyp().equals("admin")) {
             authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         }else {
->>>>>>> Stashed changes
             authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         }
         return null;
@@ -141,10 +115,6 @@ public class User implements UserDetails{
     public boolean isEnabled() {
         return true;
     }
-<<<<<<< Updated upstream
-}
-=======
 
 
 }
->>>>>>> Stashed changes

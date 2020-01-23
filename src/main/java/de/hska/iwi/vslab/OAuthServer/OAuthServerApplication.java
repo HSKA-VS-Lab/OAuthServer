@@ -31,7 +31,7 @@ public class OAuthServerApplication {
 		SpringApplication.run(OAuthServerApplication.class, args);
 	}
 
-	@Bean
+	/*@Bean
 	OAuth2RestTemplate oauth2restTemplate() {
 		ClientCredentialsResourceDetails resourceDetails = new ClientCredentialsResourceDetails();
 		resourceDetails.setAccessTokenUri(accessTokenUri);
@@ -43,7 +43,7 @@ public class OAuthServerApplication {
 		System.out.println(accessTokenUri);
 
 		return new OAuth2RestTemplate(resourceDetails, new DefaultOAuth2ClientContext());
-	}
+	}*/
 
 	@Bean
 	public CustomUserDetailsService costumUserDetailsService() {
@@ -54,8 +54,4 @@ public class OAuthServerApplication {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 }
