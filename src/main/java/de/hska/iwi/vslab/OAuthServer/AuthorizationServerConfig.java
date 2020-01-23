@@ -43,11 +43,16 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
+<<<<<<< Updated upstream
                 .withClient("webshop_app")
+=======
+                .withClient("frontendId")
+>>>>>>> Stashed changes
                 .authorizedGrantTypes("password", "authorization_code", "refresh_token", "client_credentials")
                 .authorities("ROLE_USER", "ROLE_ADMIN")
                 .scopes("read", "write")
                 .autoApprove(true)
+<<<<<<< Updated upstream
                 .secret("{noop}clientsecret")
                 .and()
                 .withClient("Api_Product")
@@ -109,6 +114,33 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .scopes("read", "write")
                 .autoApprove(true)
                 .secret("{noop}clientsecret");
+=======
+                .secret(encoder.encode("frontendSecret"))
+                //TODO: einfügen der anderen Services
+                .and()
+                .withClient("coreUserId")
+                .authorizedGrantTypes("client_credentials")
+                .scopes("read", "write")
+                .autoApprove(true)
+                .secret(encoder.encode("coreUserSecret")).and()
+                .withClient("apiUserId")
+                .authorizedGrantTypes("client_credentials")
+                .scopes("read", "write")
+                .autoApprove(true)
+                .secret(encoder.encode("apiUserSecret"))
+                .and()
+                .withClient("zuulId")
+                .authorizedGrantTypes("client_credentials")
+                .scopes("read", "write")
+                .autoApprove(true)
+                .secret(encoder.encode("zuulSecret"))
+                .and()
+                .withClient("oauthId")
+                .authorizedGrantTypes("client_credentials")
+                .scopes("read", "write")
+                .autoApprove(true)
+                .secret(encoder.encode("oauthSecret"));
+>>>>>>> Stashed changes
 
     }
 
@@ -130,4 +162,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         return new InMemoryAuthorizationCodeServices();
     }
 
+<<<<<<< Updated upstream
 }
+=======
+}
+>>>>>>> Stashed changes

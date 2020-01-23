@@ -54,4 +54,8 @@ public class OAuthServerApplication {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 }
