@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -21,17 +22,26 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
     private CustomUserDetailsService userDetailsService;
 
     @Autowired
     private TokenStore tokenStore;
 
-
     @Autowired
     private PasswordEncoder encoder;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    /*
+    
+    public AuthorizationServerConfig(AuthenticationConfiguration authenticationConfiguration) {
+        try {
+            this.authenticationManager = authenticationConfiguration.getAuthenticationManager();
+        } catch (Exception e) {
+            System.out.println("FUCK THIS SHIT");
+            e.printStackTrace();
+        }
+    }*/
 
 
     @Override
@@ -55,7 +65,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .authorizedGrantTypes("client_credentials")
                 .scopes("read", "write")
                 .autoApprove(true)
-                .secret(encoder.encode("coreUserSecret")).and()
+                .secret(encoder.encode("coreUserSecret"))
+                .and()
                 .withClient("apiUserId")
                 .authorizedGrantTypes("client_credentials")
                 .scopes("read", "write")
@@ -72,14 +83,14 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .authorizedGrantTypes("client_credentials")
                 .scopes("read", "write")
                 .autoApprove(true)
-                .secret(encoder.encode("oauthSecret"));
+                .secret(encoder.encode("oauthSecret")); 
     }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.authenticationManager(authenticationManager)
-                .tokenStore(tokenStore)
-                .userDetailsService(userDetailsService);
+                .tokenStore(tokenStore);
+                //.userDetailsService(userDetailsService);
     }
 
     @Bean
@@ -87,10 +98,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         return new InMemoryTokenStore();
     }
 
-
+    /*
     @Bean
     protected AuthorizationCodeServices authorizationCodeServices() {
         return new InMemoryAuthorizationCodeServices();
     }
-
+    */
 }

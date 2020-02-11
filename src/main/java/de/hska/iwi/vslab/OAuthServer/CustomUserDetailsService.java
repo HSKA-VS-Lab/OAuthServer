@@ -7,19 +7,31 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 
 public class CustomUserDetailsService implements UserDetailsService{
 
 
-    @Autowired
-    private OAuth2RestTemplate restTemplate;
+//    @Autowired
+//    private OAuth2RestTemplate restTemplate;
 
     @Autowired
     private PasswordEncoder encoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return org.springframework.security.core.userdetails.User.withDefaultPasswordEncoder().username("admin").password("admin").roles("USER")
+            .username("admin").password(encoder.encode("admin")).roles("USER")
+            .build();
+/*
+        if (username.equals("admin")) {
+            UserDetails us = org.springframework.security.core.userdetails.User.withUsername(username)
+                .password("admin")
+                .authorities("")
+                .build();
+            return us;
+        }
 
         User[] users = restTemplate.getForObject("http://localhost:8083/user/" + username, User[].class);
         if(users == null || users.length == 0) {
@@ -30,7 +42,7 @@ public class CustomUserDetailsService implements UserDetailsService{
         user.setPassword(encoder.encode(user.getPassword()));
 
         return user;
-
+*/
     }
 
 }

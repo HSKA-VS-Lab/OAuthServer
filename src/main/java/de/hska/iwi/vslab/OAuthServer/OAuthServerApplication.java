@@ -15,6 +15,7 @@ import org.springframework.security.oauth2.client.token.grant.client.ClientCrede
 @SpringBootApplication
 public class OAuthServerApplication {
 
+	/*
 	@Value("${security.oauth2.client.access-token-uri}")
 	private String accessTokenUri;
 
@@ -26,11 +27,13 @@ public class OAuthServerApplication {
 
 	@Value("${security.oauth2.client.grant-type}")
 	private String grantType;
+	*/
 
 	public static void main(String[] args) {
 		SpringApplication.run(OAuthServerApplication.class, args);
 	}
 
+	/*
 	@Bean
 	OAuth2RestTemplate oauth2restTemplate() {
 		ClientCredentialsResourceDetails resourceDetails = new ClientCredentialsResourceDetails();
@@ -44,6 +47,7 @@ public class OAuthServerApplication {
 
 		return new OAuth2RestTemplate(resourceDetails, new DefaultOAuth2ClientContext());
 	}
+	*/
 
 	@Bean
 	public CustomUserDetailsService costumUserDetailsService() {
@@ -54,4 +58,5 @@ public class OAuthServerApplication {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	
 }
