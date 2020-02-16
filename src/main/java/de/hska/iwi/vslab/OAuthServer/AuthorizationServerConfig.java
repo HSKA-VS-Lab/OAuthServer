@@ -47,17 +47,19 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .secret(encoder.encode("frontendSecret"))
                 //TODO: einfügen der anderen Services
                 .and()
-                .withClient("coreUserId")
+                .withClient("coreId")
                 .authorizedGrantTypes("client_credentials")
                 .scopes("read", "write")
                 .autoApprove(true)
-                .secret(encoder.encode("coreUserSecret"))
+                .secret(encoder.encode("coreSecret"))
                 .and()
                 .withClient("apiUserId")
                 .authorizedGrantTypes("client_credentials")
+                .authorities("ROLE_CORE_USER")
                 .scopes("read", "write")
                 .autoApprove(true)
-                .secret(encoder.encode("apiUserSecret"))
+                .secret(encoder.encode("apiUserSecret"));
+                /*
                 .and()
                 .withClient("zuulId")
                 .authorizedGrantTypes("client_credentials")
@@ -69,7 +71,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .authorizedGrantTypes("client_credentials")
                 .scopes("read", "write")
                 .autoApprove(true)
-                .secret(encoder.encode("oauthSecret")); 
+                .secret(encoder.encode("oauthSecret")); */
     }
 
     @Override
