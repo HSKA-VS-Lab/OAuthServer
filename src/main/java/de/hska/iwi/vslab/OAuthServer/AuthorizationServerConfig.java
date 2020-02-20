@@ -33,7 +33,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         oauthServer.checkTokenAccess("permitAll()");
         //.tokenKeyAccess("permitAll()")
                 //.checkTokenAccess("isAuthenticated()");
-
     }
 
     @Override
@@ -111,7 +110,14 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .authorities("ROLE_CORE_CATEGORY","ROLE_COMP_PRODUCT_CATEGORY")
                 .scopes("read", "write")
                 .autoApprove(true)
-                .secret(encoder.encode("apiCategorySecret"));
+                .secret(encoder.encode("apiCategorySecret"))
+                .and()
+                .withClient("oauthId")
+                .authorizedGrantTypes("client_credentials")
+                .authorities("ROLE_CORE_USER")
+                .scopes("read", "write")
+                .autoApprove(true)
+                .secret(encoder.encode("oauthSecret"));
                 /*
                 .and()
                 .withClient("zuulId")
